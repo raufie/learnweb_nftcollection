@@ -2,7 +2,7 @@ import { Contract, providers, utils } from "ethers";
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
 import Web3Modal from "web3modal";
-import { abi, NFT_CONTRACT_ADDRESS } from "../constants";
+import { abi, NFT_CONTRACT_ADDRESS } from "../constants/index.js";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -86,10 +86,12 @@ export default function Home() {
     */
   const connectWallet = async () => {
     try {
+      
       // Get the provider from web3Modal, which in our case is MetaMask
       // When used for the first time, it prompts the user to connect their wallet
       await getProviderOrSigner();
       setWalletConnected(true);
+      console.log("I am connected")
     } catch (err) {
       console.error(err);
     }
@@ -133,6 +135,9 @@ export default function Home() {
       const provider = await getProviderOrSigner();
       // We connect to the Contract using a Provider, so we will only
       // have read-only access to the Contract
+      console.log(NFT_CONTRACT_ADDRESS)
+      console.log(abi)
+      console.log(provider)
       const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, provider);
       // call the presaleStarted from the contract
       const _presaleStarted = await nftContract.presaleStarted();
@@ -183,6 +188,7 @@ export default function Home() {
    */
   const getOwner = async () => {
     try {
+      console.log("checking owner")
       // Get the provider from web3Modal, which in our case is MetaMask
       // No need for the Signer here, as we are only reading state from the blockchain
       const provider = await getProviderOrSigner();
@@ -191,6 +197,9 @@ export default function Home() {
       const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, provider);
       // call the owner function from the contract
       const _owner = await nftContract.owner();
+      
+      console.log(_owner);
+      
       // We will get the signer now to extract the address of the currently connected MetaMask account
       const signer = await getProviderOrSigner(true);
       // Get the address associated to the signer which is connected to  MetaMask

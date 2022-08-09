@@ -1,4 +1,4 @@
-export const abi = [
+module.exports = {"abi" : [
     {
       "inputs": [
         {
@@ -602,5 +602,7 @@ export const abi = [
       "stateMutability": "nonpayable",
       "type": "function"
     }
-  ]
-export const NFT_CONTRACT_ADDRESS = "0x4D1842B2EA7DAab49863fF680b272A78d2fbB814"
+  ],
+
+ "NFT_CONTRACT_ADDRESS" : "0x4D1842B2EA7DAab49863fF680b272A78d2fbB814"
+}
